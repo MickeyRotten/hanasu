@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--                                                                  
+                                                                    
+@@@@@@@    @@@@@@   @@@@@@@   @@@@@@    @@@@@@   @@@@@@@@  @@@@@@@  
+@@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@   @@@@@@@@  @@@@@@@@  @@@@@@@  
+@@!  @@@  @@!  @@@    @@!    !@@       @@!  @@@  @@!         @@!    
+!@!  @!@  !@!  @!@    !@!    !@!       !@!  @!@  !@!         !@!    
+@!@!!@!   @!@  !@!    @!!    !!@@!!    @!@  !@!  @!!!:!      @!!    
+!!@!@!    !@!  !!!    !!!     !!@!!!   !@!  !!!  !!!!!:      !!!    
+!!: :!!   !!:  !!!    !!:         !:!  !!:  !!!  !!:         !!:    
+:!:  !:!  :!:  !:!    :!:        !:!   :!:  !:!  :!:         :!:    
+::   :::  ::::: ::     ::    :::: ::   ::::: ::   ::          ::    
+ :   : :   : :  :      :     :: : :     : :  :    :           :
+
+© 2025 Mickey Rotten / RotSoft. All rights reserved. Art, video & character © Moikaloop.
+//-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jabberer UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Serif+Text:ital@0;1&family=Golos+Text:wght@400..900&family=Jaro:opsz@6..72&family=Kode+Mono:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">  
+    <!-- Stylesheets -->
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Choices.js/10.0.0/choices.min.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="left-panel">
+                <div class="gif-container">
+                    <img src="gif_a.gif" alt="Animated GIF">
+                </div>
+                <div class="caption-container">
+                    <p class="caption"><span>This is how your captions will look like.</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <h1>hanasu.exe</h1>
+            <p class="subheading">話してください、私は聞きます</p>
+            <div class="stt-settings">
+                <h2>// stt_and_translation.sh</h2>
+                <label for="spoken-language">--spoken-language</label>
+                <select id="spoken-language" name="spoken-language">
+                    <option>English (US)</option>
+                    <option>English (UK)</option>
+                    <option>Spanish</option>
+                    <option>Slovenian</option>
+                    <option>Latvian</option>
+                    <option>Italian</option>   
+                    <option>Swedish</option>   
+                    <option>Norwegian</option> 
+                    <option>Finnish</option>
+                    <option>Ukrainian</option>
+                    <option>Finnish</option>
+                </select>
+                
+                <label for="translation-language">--translation-language</label>
+                <select id="translation-language" name="translation-language">
+                    <option>No Translation</option>
+                    <option>English (US)</option>
+                    <option>English (UK)</option>
+                    <option>Spanish</option>
+                    <option>Slovenian</option>
+                    <option>Latvian</option>
+                    <option>Italian</option>   
+                    <option>Swedish</option>   
+                    <option>Norwegian</option> 
+                    <option>Finnish</option>
+                </select>
+                
+                <label for="captions-font">--font-family</label>
+                <select id="captions-font" name="captions-font">
+                    <option value="font1">Golos Text</option>
+                    <option value="font2">Noto Sans</option>
+                    <option value="font3">Roboto</option>
+                    <option value="font4">Comic Neue</option>
+                    <option value="font5">Noto Serif</option>
+                    <option value="font6">DM Serif Text</option>
+                </select>
+                
+                <label for="font-size-slider">--font-size</label>
+                <input type="range" id="font-size-slider" min="40" max="62" step="2" value="40">
+                </select>
+
+                <button class="main-btn">initiate overlay</button>
+
+                <label for="secondary-btn">--invite-twitch-bot</label>
+                <button class="secondary-btn">invite bot</button>
+                <p class="tiny-text">⮡   the bot will send your captions also to your Twitch chat</p>
+
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2025 Mickey Rotten / RotSoft. All rights reserved. Art, video & character © <a href="https://www.youtube.com/channel/UCfXL5aIskd6L6wsOG0ZT3SA" target="_blank">Moikaloop</a>.</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Select elements
+    const caption = document.querySelector('.caption span'); // Target span inside caption
+    const fontSelector = document.getElementById('captions-font');
+    const fontSizeSlider = document.getElementById("font-size-slider");
+
+    // Ensure elements exist before adding event listeners
+    if (caption && fontSelector) {
+        fontSelector.addEventListener('change', function () {
+            // Remove all existing font classes
+            caption.classList.remove('font1', 'font2', 'font3', 'font4', 'font5', 'font6');
+
+            // Add the selected font class
+            const selectedFont = this.value;
+            caption.classList.add(selectedFont);
+        });
+    } else {
+        console.error("Font selector or caption element not found.");
+    }
+
+    // Font Size Slider Logic
+    if (caption && fontSizeSlider) {
+        fontSizeSlider.addEventListener("input", function () {
+            const fontSize = fontSizeSlider.value;
+            caption.style.fontSize = `${fontSize}px`;
+        });
+    } else {
+        console.error("Font size slider or caption element not found.");
+    }
+
+    // Disable right-click and View Source
+    document.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.ctrlKey && (event.key === "u" || event.key === "U")) {
+            event.preventDefault();
+        }
+    });
+});
+    </script>    
+</body>
+</html>
